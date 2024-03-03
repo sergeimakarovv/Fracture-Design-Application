@@ -1,0 +1,88 @@
+---
+title: "Report"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  word_document: default
+  html_document:
+    df_print: paged
+always_allow_html: true
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = F)
+```
+
+## Calculation theory
+### Optimal fracture parameters
+
+To determine the necessary relationships between fracture length and fracture width when planning fracturing, the most important parameter is the dimensionless proppant number $N_{prop}$.  
+
+Dimensionless proppant number:
+$$N_{prop}=I_x^2\cdot C_{fD}=\frac{2k_f}{k}\cdot\frac{V_{prop}}{V_{res}}$$  
+
+Dimensionless fracture conductivity: 
+$$C_{fD}=\frac{k_f\cdot w}{k\cdot x_f}$$
+Fracture penetration:
+$$I_x=\frac{2x_f}{x_e}$$
+Optimal half length:
+$$x_f=\left(\frac{V_fk_f}{C_{fD,opt}hk}\right)^{1/2}$$
+Optimal propped width:
+$$w=\left(\frac{C_{fD,opt}V_fk}{hk_f}\right)^{1/2}=\frac{V_f}{x_fh}$$
+Dimensionless productivity index:  
+$$J_d=\frac{1}{\ln{\left[\frac{0,472\ r_e}{r_w}\right]}+s_f}$$
+
+### Actual proppant placement
+In the fracture design application, the PKN (Perkins-Kern-Nordgren) model was used as a fracture propagation model.    
+    
+The maximum width of the ellipse in the bottomhole zone:
+$$w_0(x)=3,57\left(\frac{\mu q_ix_f}{E'}\right)^{1/4}$$
+Average fracture width:
+$$\bar{w}=0,628 \cdot w_{w,0}$$
+
+### Treatment mode parameters
+
+Injection fluid volume:  
+$$V_i=q_it_e$$
+Fluid efficiency:  
+$$\eta_i=\frac{h_fx_f\bar{w_e}}{V_i}$$
+Exponent of added proppant concentration of the injected proppant:
+$$\varepsilon\ =\ \frac{1-\eta_e}{1+\eta_e}$$
+The volume of the "pad" and the time for its pumping:
+$$V_{pad}\ =\varepsilon V_i$$
+$$t_{pad}\ =\varepsilon t_e$$
+Areal concentration of proppant after fracture closure:
+$$c_s=\frac{M_{act}}{h_f\ \cdot2x_f}$$
+### Calculation results
+
+
+```{r}
+                                    data <- df_en()
+                                    colnames(data)<-c('Parameter','Value')
+                                    knitr::kable(data,
+                                               caption = "Optimal placement")
+                                     br()
+```
+
+
+```{r}
+                                    data <- dfA_en()
+                                    colnames(data)<-c('Parameter','Value')
+                                    knitr::kable(data,
+                                               caption = "Actual placement")
+                                    br()
+```
+
+```{r}
+                                    data <- dfR_en()
+                                    colnames(data)<-c('Parameter','Value')
+                                    knitr::kable(data,
+                                               caption = "Treatment mode")
+                                    br()
+```
+
+
+
+<!-- ### Комментарии к расчёту -->
+
+<!-- ```{r Interval2, warning = FALSE} -->
+<!-- note_in_md_word(input$markdowninput) -->
+<!-- ``` -->
